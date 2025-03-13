@@ -139,6 +139,7 @@ pyrightconfig.json
 
 # MNIST dataset
 data/mnist/
+data/MNIST/
 
 # System files
 .DS_Store 
