@@ -3,20 +3,26 @@ import torch
 from models.Scratch import FromScratch
 # VGGNet Class import
 from models.ResNet import MNISTResNet
+from models.VGGNet import MNISTVGG
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODELS_DIR = os.path.join(BASE_DIR, 'models')
 
 model_class = {
+<<<<<<< HEAD
+    'Scratch' : None, # Scratch Class
+    'VGGNet' : MNISTVGG(),
+=======
     'Scratch' : FromScratch(), # Scratch Class
     'VGGNet' : , # VGGNet Class
+>>>>>>> origin/feature/ResNet
     'ResNet' : MNISTResNet()
 }
 
 model_dir = {
     'Scratch' : 'Scratch_models', # Scratch Class
-    'VGGNet' : 'VGGNet_models', # VGGNet Class
+    'VGGNet' : 'VGGNet_models',
     'ResNet' : 'ResNet_models'
 }
 
