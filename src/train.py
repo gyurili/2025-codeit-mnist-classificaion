@@ -7,6 +7,7 @@ from src.config import DEVICE, MODELS_DIR, model_dir, load_model
 # 학습 함수
 def train_model(model, model_type, criterion, optimizer, train_loader, val_loader, epochs=10, path='best_model.pth'):
     best_acc = 0.0
+    loss_history = []
     
     dir = os.path.join(MODELS_DIR, model_dir[model_type])
     os.makedirs(dir, exist_ok=True)  # 폴더가 없으면 생성
@@ -33,12 +34,15 @@ def train_model(model, model_type, criterion, optimizer, train_loader, val_loade
         
         train_acc = correct / total
         val_acc = evaluate(model, val_loader)
+        epoch_loss = running_loss / len(train_loader)
+        loss_history.append(epoch_loss)
         print(f"Epoch [{epoch+1}/{epochs}], Loss: {running_loss/len(train_loader):.4f}, Train Acc: {train_acc:.4f}, Val Acc: {val_acc:.4f}")
         
         if val_acc > best_acc:
             best_acc = val_acc
             torch.save(model.state_dict(), path)
             print("Best model saved!")
+    return loss_history
 
 # 검증 함수
 def evaluate(model, loader):
@@ -71,5 +75,7 @@ def run_model(model_type, train_loader, val_loader, test_loader, lr=0.001, epoch
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
     
-    train_model(model, model_type, criterion, optimizer, train_loader, val_loader, epochs, path)
+    loss_history = train_model(model, model_type, criterion, optimizer, train_loader, val_loader, epochs, path)
     test_model(test_loader, path=path)
+    
+    return loss_history
