@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 from src.config import DEVICE, load_model
 
 # 랜덤 샘플 시각화 함수
-def visualize_predictions(data_loader, num_samples=5, path=''):
-    model = load_model(best=True, path=path)
+def visualize_predictions(model_type, data_loader, num_samples=5, path=''):
+    model = load_model(model_type, best=True, path=path)
     
     model.eval()
     images, labels = next(iter(data_loader))
