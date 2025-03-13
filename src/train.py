@@ -76,6 +76,6 @@ def run_model(model_type, train_loader, val_loader, test_loader, lr=0.001, epoch
     optimizer = optim.Adam(model.parameters(), lr=lr)
     
     loss_history = train_model(model, model_type, criterion, optimizer, train_loader, val_loader, epochs, path)
-    test_model(test_loader, path=path)
+    test_model(model_type, test_loader, path=path)
     
     return loss_history
