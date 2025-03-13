@@ -48,7 +48,7 @@ conda env create -f environment.yml
 conda activate mnist-classification
 ```
 
-### 2️⃣ ** git 클론 다운로드**
+### 2️⃣ **git 클론 다운로드**
 ```bash
 git clone https://github.com/gyurili/2025-codeit-mnist-classificaion.git
 cd 2025-codeit-mnist-classificaion
