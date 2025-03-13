@@ -45,12 +45,16 @@
 먼저 프로젝트 환경을 설정해야 합니다.
 ```bash
 conda env create -f environment.yml
+conda activate mnist-classification
+```
 
+### 2️⃣ ** git 클론 다운로드**
+```bash
 git clone https://github.com/gyurili/2025-codeit-mnist-classificaion.git
 cd 2025-codeit-mnist-classificaion
 ```
 
-### 2️⃣ **IDE 실행**
+### 3️⃣ **IDE 실행**
 IDE를 통해 main.py를 열고 실행하면 됩니다.
 
 ---
