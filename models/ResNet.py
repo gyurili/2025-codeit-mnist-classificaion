@@ -97,7 +97,7 @@ def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, only_test=False)
         return test_acc
     
     train(model, criterion, optimizer, train_loader, val_loader)
-    test_ResNet(model, test_loader)
+    test_ResNet(test_loader)
 
 # 랜덤 샘플 시각화 함수
 def ResNet_visualize_predictions(data_loader, num_samples=5):
