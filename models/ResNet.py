@@ -29,7 +29,7 @@ def load_ResNet_model(best=False, path='best_ResNet_model.pth'):
     return model
 
 # 학습 함수
-def train(model, criterion, optimizer, train_loader, val_loader, epochs=10, path='best_ResNet_model.pth'):
+def train_ResNet(model, criterion, optimizer, train_loader, val_loader, epochs=10, path='best_ResNet_model.pth'):
     best_acc = 0.0
     os.makedirs("ResNet_models", exist_ok=True)  # 폴더가 없으면 생성
     path = os.path.join(BASE_DIR, "models/ResNet_models", path)
@@ -77,14 +77,15 @@ def evaluate(model, loader):
     return correct / total
 
 # 테스트 함수
-def test_ResNet(test_loader, path='best_ResNet_model.pth'):
+def test_ResNet(test_loader, path='best_ResNet_model.pth', print=True):
     model = load_ResNet_model(best=True, path=path)
     test_acc = evaluate(model, test_loader)
-    print(f"Test Accuracy: {test_acc:.4f}")
+    if print:
+        print(f"Test Accuracy: {test_acc:.4f}")
     return test_acc
 
 # 학습 실행 함수
-def run_ResNet(train_loader=None, val_loader=None, test_loader=None, lr=0.001, epochs=10, only_test=False, path='best_ResNet_model.pth'):
+def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, epochs=10, path='best_ResNet_model.pth'):
     # 모델 초기화
     model = load_ResNet_model()
     
@@ -92,11 +93,7 @@ def run_ResNet(train_loader=None, val_loader=None, test_loader=None, lr=0.001, e
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
     
-    if only_test:
-        test_acc = test_ResNet(model, test_loader)
-        return test_acc
-    
-    train(model, criterion, optimizer, train_loader, val_loader, epochs, path)
+    train_ResNet(model, criterion, optimizer, train_loader, val_loader, epochs, path)
     test_ResNet(test_loader, path=path)
 
 # 랜덤 샘플 시각화 함수
