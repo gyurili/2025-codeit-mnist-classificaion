@@ -77,14 +77,14 @@ def evaluate(model, loader):
     return correct / total
 
 # 테스트 함수
-def test_ResNet(test_loader):
-    model = load_ResNet_model(best=True)
+def test_ResNet(test_loader, path='best_ResNet_model.pth'):
+    model = load_ResNet_model(best=True, path=path)
     test_acc = evaluate(model, test_loader)
     print(f"Test Accuracy: {test_acc:.4f}")
     return test_acc
 
 # 학습 실행 함수
-def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, only_test=False):
+def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, only_test=False, path='best_ResNet_model.pth'):
     # 모델 초기화
     model = load_ResNet_model()
     
@@ -97,11 +97,11 @@ def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, only_test=False)
         return test_acc
     
     train(model, criterion, optimizer, train_loader, val_loader)
-    test_ResNet(test_loader)
+    test_ResNet(test_loader, path=path)
 
 # 랜덤 샘플 시각화 함수
-def ResNet_visualize_predictions(data_loader, num_samples=5):
-    model = load_ResNet_model(best=True)
+def ResNet_visualize_predictions(data_loader, num_samples=5, path='best_ResNet_model.pth'):
+    model = load_ResNet_model(best=True, path=path)
     
     model.eval()
     images, labels = next(iter(data_loader))
