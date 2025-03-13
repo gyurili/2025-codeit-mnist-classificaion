@@ -45,7 +45,7 @@
 먼저 프로젝트 환경을 설정해야 합니다.
 ```bash
 conda env create -f environment.yml
-conda activate mnist-classification
+conda activate myenv
 ```
 
 ### 2️⃣ **git 클론 다운로드**
