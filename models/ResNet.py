@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -21,6 +22,8 @@ class MNISTResNet(nn.Module):
 # 학습 함수
 def train(model, criterion, optimizer, train_loader, val_loader, epochs=10):
     best_acc = 0.0
+    os.makedirs("ResNet_models", exist_ok=True)  # 폴더가 없으면 생성
+    
     for epoch in range(epochs):
         model.train()
         running_loss = 0.0
