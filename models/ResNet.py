@@ -77,7 +77,7 @@ def test_ResNet(model, test_loader):
 def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, only_test=False):
     # 모델 초기화
     model = MNISTResNet().to(device)
-
+    
     # 손실 함수 및 옵티마이저 정의
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
