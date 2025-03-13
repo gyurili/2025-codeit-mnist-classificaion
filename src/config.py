@@ -1,6 +1,6 @@
 import os
 import torch
-# Scratch Class import
+from models.Scratch import FromScratch
 # VGGNet Class import
 from models.ResNet import MNISTResNet
 
@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODELS_DIR = os.path.join(BASE_DIR, 'models')
 
 model_class = {
-    'Scratch' : , # Scratch Class
+    'Scratch' : FromScratch(), # Scratch Class
     'VGGNet' : , # VGGNet Class
     'ResNet' : MNISTResNet()
 }
@@ -21,7 +21,7 @@ model_dir = {
 }
 
 # 모델 함수
-def load_model(model_type, best=False, path=''):
+def load_model(model_type, best=False, path='best_model.pth'):
     model = model_class[model_type].to(DEVICE)
     if best:
         path = os.path.join(MODELS_DIR, model_dir[model_type], path)
