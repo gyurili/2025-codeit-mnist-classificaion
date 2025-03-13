@@ -36,7 +36,6 @@
 │── environment.yml          # 프로젝트 환경 설정 파일
 │── main.py                  # 메인 실행 스크립트
 │── README.md                # 프로젝트 설명 (이 파일)
-│── requirements.txt         # 꼭 필요한 패키지
 ```
 
 ---
@@ -45,9 +44,10 @@
 ### 1️⃣ **프로젝트 환경 설정**
 먼저 프로젝트 환경을 설정해야 합니다.
 ```bash
+conda env create -f environment.yml
+
 git clone https://github.com/gyurili/2025-codeit-mnist-classificaion.git
 cd 2025-codeit-mnist-classificaion
-pip install -r requirements.txt
 ```
 
 ### 2️⃣ **IDE 실행**
