@@ -1,5 +1,5 @@
 from torchvision.datasets import MNIST
-from torchvision.transforms import Compose, ToTensor, Normalize, RandomCrop, RandomRotation
+from torchvision.transforms import Compose, ToTensor, Normalize, RandomCrop, RandomRotation, Resize
 
 
 # 테스트 데이터셋 생성 함수 - 정규화 적용
@@ -67,6 +67,9 @@ def select_augmentation(image_size=28):
         transforms.append(RandomCrop(int(crop_size)))  
         #  크롭 적용 - default image_size=28
 
+        transforms.append(Resize((image_size, image_size)))
+        # 크롭 후 이미지 크기 복원
+        
     if rotate_degree is not None:
         
         transforms.append(RandomRotation(rotate_degree))
