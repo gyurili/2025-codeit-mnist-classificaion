@@ -84,7 +84,7 @@ def test_ResNet(test_loader, path='best_ResNet_model.pth'):
     return test_acc
 
 # 학습 실행 함수
-def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, only_test=False, path='best_ResNet_model.pth'):
+def run_ResNet(train_loader=None, val_loader=None, test_loader=None, lr=0.001, epochs=10, only_test=False, path='best_ResNet_model.pth'):
     # 모델 초기화
     model = load_ResNet_model()
     
@@ -96,7 +96,7 @@ def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, only_test=False,
         test_acc = test_ResNet(model, test_loader)
         return test_acc
     
-    train(model, criterion, optimizer, train_loader, val_loader)
+    train(model, criterion, optimizer, train_loader, val_loader, epochs, path)
     test_ResNet(test_loader, path=path)
 
 # 랜덤 샘플 시각화 함수
