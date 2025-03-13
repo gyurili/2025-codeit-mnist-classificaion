@@ -7,6 +7,7 @@ import numpy as np
 from torchvision import models
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ResNet-18 모델 정의
 class MNISTResNet(nn.Module):
@@ -20,16 +21,18 @@ class MNISTResNet(nn.Module):
         return self.model(x)
 
 # 모델 함수
-def load_ResNet_model(best=False):
+def load_ResNet_model(best=False, path='best_ResNet_model.pth'):
     model = MNISTResNet().to(device)
     if best:
-        model.load_state_dict(torch.load("ResNet_models/best_ResNet_model.pth"))
+        path = os.path.join(BASE_DIR, "models/ResNet_models", path)
+        model.load_state_dict(torch.load(path))
     return model
 
 # 학습 함수
-def train(model, criterion, optimizer, train_loader, val_loader, epochs=10):
+def train(model, criterion, optimizer, train_loader, val_loader, epochs=10, path='best_ResNet_model.pth'):
     best_acc = 0.0
     os.makedirs("ResNet_models", exist_ok=True)  # 폴더가 없으면 생성
+    path = os.path.join(BASE_DIR, "models/ResNet_models", path)
     
     for epoch in range(epochs):
         model.train()
@@ -56,7 +59,7 @@ def train(model, criterion, optimizer, train_loader, val_loader, epochs=10):
         
         if val_acc > best_acc:
             best_acc = val_acc
-            torch.save(model.state_dict(), "ResNet_models/best_ResNet_model.pth")
+            torch.save(model.state_dict(), path)
             print("Best model saved!")
 
 # 검증 함수
