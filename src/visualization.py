@@ -24,3 +24,14 @@ def visualize_predictions(model_type, data_loader, num_samples=5, path=''):
         ax.set_title(f"Pred: {predictions[i].item()}\nLabel: {labels[i].item()}")
         ax.axis("off")
     plt.show()
+
+# 학습 손실 시각화 함수
+def visualize_loss(model_type, loss_history):
+    plt.figure(figsize=(8, 5))
+    plt.plot(loss_history, label=f"{model_type} Loss", marker="o")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.title(f"Training Loss of {model_type}")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
