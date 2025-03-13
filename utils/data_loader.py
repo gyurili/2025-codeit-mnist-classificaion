@@ -38,8 +38,3 @@ def visualize_train_loader(train_loader):
         axes[i].axis('off')  # 축 제거
 
     plt.show()
-
-train_loader, _, _ = make_loader()
-
-
-visualize_train_loader(train_loader)
