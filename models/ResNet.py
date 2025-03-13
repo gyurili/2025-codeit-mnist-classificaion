@@ -19,6 +19,13 @@ class MNISTResNet(nn.Module):
     def forward(self, x):
         return self.model(x)
 
+# 모델 함수
+def load_ResNet_model(best=False):
+    model = MNISTResNet().to(device)
+    if best:
+        model.load_state_dict(torch.load("ResNet_models/best_ResNet_model.pth"))
+    return model
+
 # 학습 함수
 def train(model, criterion, optimizer, train_loader, val_loader, epochs=10):
     best_acc = 0.0
@@ -67,8 +74,8 @@ def evaluate(model, loader):
     return correct / total
 
 # 테스트 함수
-def test_ResNet(model, test_loader):
-    model.load_state_dict(torch.load("ResNet_models/best_ResNet_model.pth"))
+def test_ResNet(test_loader):
+    model = load_ResNet_model(best=True)
     test_acc = evaluate(model, test_loader)
     print(f"Test Accuracy: {test_acc:.4f}")
     return test_acc
@@ -76,7 +83,7 @@ def test_ResNet(model, test_loader):
 # 학습 실행 함수
 def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, only_test=False):
     # 모델 초기화
-    model = MNISTResNet().to(device)
+    model = load_ResNet_model()
     
     # 손실 함수 및 옵티마이저 정의
     criterion = nn.CrossEntropyLoss()
@@ -90,7 +97,9 @@ def run_ResNet(train_loader, val_loader, test_loader, lr=0.001, only_test=False)
     test_ResNet(model, test_loader)
 
 # 랜덤 샘플 시각화 함수
-def visualize_predictions(model, data_loader, num_samples=5):
+def ResNet_visualize_predictions(data_loader, num_samples=5):
+    model = load_ResNet_model(best=True)
+    
     model.eval()
     images, labels = next(iter(data_loader))
     indices = np.random.choice(len(images), num_samples, replace=False)
